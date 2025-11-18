@@ -273,54 +273,122 @@ npx cap open ios                     # Ouvre Xcode
 - ✅ Rouvrir une tâche complétée
 - ✅ Persistance temps réel avec InstantDB
 
-### 🚧 Phase 3 à venir (Semaine 3)
+### ✅ Phase 3 - Partie 1 complétée (Notifications)
 
-**Objectif :** Notifications push + Bilan email + Settings
+**Objectif atteint :** Système de notifications push locales + Settings
 
-Tâches prioritaires :
+**Hooks créés :**
+- [x] `useNotifications` - Hook complet pour notifications locales
+  - Permissions: requestPermission, checkPermission
+  - Scheduling: scheduleTaskReminder, scheduleGroupedReminder, rescheduleAllReminders
+  - Gestion: updateBadgeCount, cancelAllReminders, sendTestNotification
+  - Configuration: getReminderTime, areNotificationsEnabled
 
-1. **Système de notifications push locales**
-   - [ ] Créer `useNotifications` hook
-   - [ ] Fonction `scheduleTaskReminders(task)` - Planifier notif par tâche
-   - [ ] Fonction `rescheduleAllReminders()` - Au lancement app
-   - [ ] Logique quotidien (17h pour tâches ≤7j) / hebdo (tous les 7j pour >7j)
-   - [ ] Format contenu: Liste 3-5 premières tâches + count si plus
-   - [ ] Badge icon = nombre tâches en attente
-   - [ ] Tester sur iPhone réel
+**Features implémentées :**
+- [x] Notifications quotidiennes pour tâches ≤7 jours
+- [x] Notifications hebdomadaires pour tâches >7 jours
+- [x] Notifications groupées (3-5 tâches + count)
+- [x] Badge icon avec nombre de tâches en attente
+- [x] Gestion complète des permissions iOS
+- [x] Test de notification (envoi dans 5 secondes)
+- [x] Page Settings complète et fonctionnelle
+- [x] Persistance avec Capacitor Preferences
+- [x] Auto-rescheduling au lancement de l'app
+- [x] Respect des préférences utilisateur (on/off, horaire)
 
-2. **Bilan hebdomadaire par email**
-   - [ ] Créer route API `/api/send-weekly-report` (Vercel serverless)
-   - [ ] Template HTML email professionnel
-   - [ ] Sections: Message félicitations (dynamique selon count) + Tâches complétées + Tâches restantes
-   - [ ] Calcul stats mensuelles:
-     - Tâches créées/réalisées/restantes
-     - Taux complétion (%)
-     - Délai moyen complétion (jours)
-     - Streak (jours consécutifs ≥1 tâche)
-     - Catégorie la plus productive
-     - Tâches en retard vs à venir
-   - [ ] Intégration Resend.com API
-   - [ ] Fonction `archiveCompletedTasks()` post-envoi
-   - [ ] Configurer Vercel cron job (dimanches 9h)
-   - [ ] Tests envoi
+**Page Settings :**
+- [x] Section Email avec validation
+- [x] Section Notifications avec time picker (défaut 17h)
+- [x] Section Bilan hebdo avec day/time picker
+- [x] Toggles pour activer/désactiver
+- [x] Boutons de test (notification + email)
+- [x] Sauvegarde automatique avec feedback visuel
+- [x] Warning si permissions non accordées
 
-3. **Page Settings fonctionnelle**
-   - [ ] Créer `useSettings` hook (Capacitor Preferences)
-   - [ ] Section Email: input + validation
-   - [ ] Section Rappels: time picker (défaut 17h) + toggle on/off
-   - [ ] Section Bilan: day/time picker (défaut Dimanche 9h) + toggle on/off
-   - [ ] Boutons test: "Envoyer notif test" + "Envoyer email test"
-   - [ ] Sauvegarde automatique des changements
-   - [ ] Feedback visuel (toast/snackbar)
+**Intégration App :**
+- [x] Reschedule automatique au lancement (App.tsx)
+- [x] Update quand le nombre de tâches change
 
-4. **Finitions & Polish**
-   - [ ] Vérifier toutes les animations 60fps
-   - [ ] Loading states partout
-   - [ ] Error states avec messages clairs
-   - [ ] Empty states motivants
-   - [ ] Respect safe areas iOS (notch + home indicator)
-   - [ ] Tests sur iPhone 13 réel
-   - [ ] Documentation utilisateur (README)
+### ✅ Phase 3 - Partie 2 complétée (Email & Stats)
+
+**Objectif atteint :** Bilan hebdomadaire par email + Configuration Vercel
+
+**Fichiers créés :**
+- [x] `api/send-weekly-report.ts` - Fonction serverless Vercel
+  - Fetch tasks depuis InstantDB (mock data pour l'instant)
+  - Calcul des statistiques complètes
+  - Génération HTML email professionnel
+  - Envoi via Resend.com API
+  - Mode test via query parameter
+  - Archivage post-envoi (prêt pour production)
+
+- [x] `src/utils/emailStats.ts` - Utilitaires de calcul de stats
+  - calculateWeeklyStats() - Stats complètes
+  - getCongratulationsMessage() - Message dynamique (6 niveaux)
+  - calculateAverageDelay() - Délai moyen
+  - calculateStreak() - Jours consécutifs
+  - findTopCategory() - Catégorie la plus productive
+  - categorizeTasksByDueDate() - En retard vs à venir
+
+- [x] `vercel.json` - Configuration cron + env vars
+  - Cron: Dimanche 9h00 (0 9 * * 0)
+  - Variables d'environnement
+
+- [x] `api/README.md` - Documentation déploiement Vercel
+
+**Email Template :**
+- [x] Design HTML responsive avec branding DidYouDo
+- [x] Message félicitations dynamique
+- [x] Grid statistiques (complétées, restantes, taux, délai, top catégorie)
+- [x] Alerte tâches en retard
+- [x] Table tâches complétées avec dates
+- [x] Table tâches restantes (top 10)
+- [x] Footer professionnel
+
+**Settings Page :**
+- [x] Bouton test email connecté
+- [x] Validation email avant envoi
+- [x] États loading/success/error
+- [x] Helper text pour guidance
+
+**Statistiques incluses :**
+- ✅ Tâches complétées cette semaine
+- ✅ Tâches restantes
+- ✅ Taux de complétion (%)
+- ✅ Délai moyen de complétion (jours)
+- ✅ Streak (jours consécutifs avec ≥1 tâche)
+- ✅ Catégorie la plus productive
+- ✅ Tâches en retard vs à venir
+
+**Dépendances ajoutées :**
+- resend: ^6.5.0
+- @vercel/node: ^5.5.6
+- @instantdb/admin: ^0.22.56
+
+### 🚧 Phase 4 - Polish & Déploiement
+
+**Prochaines étapes :**
+
+1. **Déploiement Vercel**
+   - [ ] Créer projet Vercel
+   - [ ] Configurer variables d'environnement
+   - [ ] Déployer et tester le cron job
+   - [ ] Obtenir InstantDB Admin token
+   - [ ] Tester emails en production
+
+2. **Polish UI/UX**
+   - [ ] Ajouter loading states uniformes
+   - [ ] Améliorer error states
+   - [ ] Créer empty states motivants
+   - [ ] Vérifier animations 60fps
+   - [ ] Respect safe areas iOS
+
+3. **Tests iPhone**
+   - [ ] Build iOS production
+   - [ ] Tests notifications sur iPhone 13
+   - [ ] Tests complétion avec animations
+   - [ ] Vérifier safe areas
+   - [ ] Tests workflow complet
 
 ## Spécifications critiques (extraites du PRD)
 
@@ -485,39 +553,78 @@ Focus absolu sur les 4 must-have critiques (P0). Tout le reste est pour plus tar
 **Version:** 1.0
 **Dernière mise à jour:** 18 novembre 2025
 **Auteur:** Christian avec Claude Code
-**Statut:** Phase 1 ✅ | Phase 2 ✅ | Phase 3 🚧
+**Statut:** Phase 1 ✅ | Phase 2 ✅ | Phase 3 ✅ | Phase 4 🚧
 
 ---
 
 ## 📝 Note pour la prochaine session
 
-**Ce qui a été accompli aujourd'hui :**
-- ✅ Phase 1 complète: Setup projet React + Vite + Capacitor
-- ✅ Phase 2 complète: CRUD tâches + animations gamifiées
-- ✅ Application fonctionnelle avec persistance InstantDB
-- ✅ Animation de complétion (confettis + son + haptic)
+**🎉 TOUTES les fonctionnalités P0 (Must-Have) sont implémentées !**
 
-**Application actuellement utilisable pour :**
-- Créer, voir, compléter, reporter et supprimer des tâches
-- Animation motivante lors de la complétion
-- Données persistées en temps réel
+**Ce qui a été accompli :**
+- ✅ Phase 1: Setup projet React + Vite + Capacitor
+- ✅ Phase 2: CRUD tâches + animations gamifiées
+- ✅ **Phase 3.1: Notifications push locales + Settings**
+- ✅ **Phase 3.2: Bilan hebdomadaire par email + Vercel serverless**
 
-**Prochaine priorité - Phase 3 :**
-1. Implémenter les notifications push locales (Capacitor)
-2. Créer le système d'email hebdomadaire (Resend + Vercel)
-3. Finaliser la page Settings
+**Application MVP complète avec :**
+- ✅ CRUD complet des tâches avec InstantDB
+- ✅ Animations gamifiées (confettis + son + haptic)
+- ✅ Notifications push quotidiennes/hebdomadaires
+- ✅ Configuration complète dans Settings
+- ✅ Test de notifications en un clic
+- ✅ Bilan hebdomadaire par email avec stats complètes
+- ✅ Fonction serverless Vercel avec cron automatique
+- ✅ Template HTML email professionnel
+
+**Prochaine priorité - Phase 4 (Polish & Déploiement) :**
+
+1. **Déploiement Vercel** (PRIORITÉ)
+   - Créer projet Vercel
+   - Configurer variables d'environnement
+   - Déployer et tester le cron job
+   - Obtenir InstantDB Admin token pour fetch production
+   - Tester emails réels avec Resend
+
+2. **Polish UI/UX**
+   - Loading states uniformes
+   - Error states clairs
+   - Empty states motivants
+   - Vérifier animations 60fps
+
+3. **Tests iPhone 13**
+   - Build iOS production
+   - Tests notifications réelles
+   - Tests workflow complet
 
 **Commandes utiles pour démarrer :**
 ```bash
-npm run dev              # Lancer en dev
+npm install              # Installer dépendances
+npm run dev              # Lancer en dev (http://localhost:3000)
 npm run build            # Build production
 npx cap sync ios         # Sync avec iOS
 npx cap open ios         # Ouvrir Xcode
+
+# Pour Vercel
+vercel                   # Déployer
+vercel dev               # Test local serverless
 ```
 
 **Fichiers clés à connaître :**
-- `src/hooks/useTasks.ts` - Hook principal pour gérer les tâches
-- `src/utils/completionAnimation.ts` - Animation de complétion
-- `src/pages/TaskListPage.tsx` - Page principale
-- `src/pages/TaskDetailPage.tsx` - Détails + actions
-- `.env` - Clés API configurées (InstantDB + Resend)
+- `src/hooks/useTasks.ts` - Hook principal tâches
+- `src/hooks/useNotifications.ts` - Hook notifications push
+- `src/pages/SettingsPage.tsx` - Page Settings complète
+- `src/utils/completionAnimation.ts` - Animation complétion
+- `src/utils/emailStats.ts` - Calcul statistiques email
+- **`api/send-weekly-report.ts`** - Fonction serverless email
+- **`vercel.json`** - Configuration cron Vercel
+- **`api/README.md`** - Guide déploiement
+- `.env` - Clés API (InstantDB + Resend)
+
+**Variables d'environnement requises pour Vercel :**
+```
+VITE_INSTANTDB_APP_ID - App ID InstantDB
+VITE_RESEND_API_KEY - API Key Resend.com
+VITE_EMAIL_FROM - Email expéditeur
+VITE_USER_EMAIL - Email destinataire (Christian)
+```

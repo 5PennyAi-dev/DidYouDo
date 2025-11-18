@@ -1,0 +1,14 @@
+{
+  "crons": [
+    {
+      "path": "/api/send-weekly-report",
+      "schedule": "0 9 * * 0"
+    }
+  ],
+  "env": {
+    "VITE_INSTANTDB_APP_ID": "@instantdb_app_id",
+    "VITE_RESEND_API_KEY": "@resend_api_key",
+    "VITE_EMAIL_FROM": "@email_from",
+    "VITE_USER_EMAIL": "@user_email"
+  }
+}

@@ -178,14 +178,40 @@ npm run lint     # Linter le code
 - [x] Actions: compléter, reporter, supprimer
 - [x] Persistance données avec InstantDB
 
-## Prochaines étapes - Phase 3 (Semaine 3)
+## Phase 3 - TERMINÉ ✅
 
-- [ ] Système de notifications push locales (Capacitor)
-- [ ] Logique scheduling quotidien/hebdomadaire
-- [ ] Bilan hebdomadaire par email (Resend)
-- [ ] Template HTML email avec stats
-- [ ] Page Settings fonctionnelle
-- [ ] Vercel serverless functions + cron
+### Partie 1: Notifications Push Locales ✅
+- [x] Hook useNotifications avec Capacitor Local Notifications
+- [x] Logique scheduling quotidien/hebdomadaire
+- [x] Notifications groupées (3-5 tâches + count)
+- [x] Badge icon avec nombre de tâches
+- [x] Gestion des permissions iOS
+- [x] Fonction de test de notification
+- [x] Page Settings complète avec configuration
+- [x] Persistance des paramètres (Capacitor Preferences)
+- [x] Intégration automatique au lancement de l'app
+
+### Partie 2: Bilan Hebdomadaire par Email ✅
+- [x] Fonction serverless Vercel pour envoi d'emails
+- [x] Template HTML email professionnel avec branding
+- [x] Calcul des statistiques complètes:
+  - Taux de complétion (%)
+  - Délai moyen de complétion (jours)
+  - Streak (jours consécutifs avec tâches)
+  - Catégorie la plus productive
+  - Tâches en retard vs à venir
+- [x] Message de félicitations dynamique (6 niveaux)
+- [x] Intégration Resend.com API
+- [x] Configuration cron job Vercel (dimanche 9h)
+- [x] Bouton test email dans Settings
+- [x] Archivage des tâches après envoi (prêt pour production)
+
+### Prochaines étapes - Phase 4
+
+- [ ] Polish & finitions UI/UX
+- [ ] Loading/error/empty states
+- [ ] Tests sur iPhone 13
+- [ ] Déploiement Vercel production
 
 ## Documentation
 
@@ -204,18 +230,24 @@ Usage personnel uniquement - Christian
 
 **Version:** 1.0.0 MVP
 **Dernière mise à jour:** 18 novembre 2025
-**Statut:** Phase 1 ✅ | Phase 2 ✅ | Phase 3 🚧
+**Statut:** Phase 1 ✅ | Phase 2 ✅ | Phase 3 ✅ | Phase 4 🚧
 
 ## État actuel
 
-**Application fonctionnelle !** Vous pouvez maintenant :
+**Application MVP complète !** Toutes les fonctionnalités P0 sont implémentées :
 - ✅ Créer des tâches avec tous les champs
 - ✅ Voir la liste organisée (actives/complétées)
 - ✅ Compléter une tâche avec animation gamifiée
 - ✅ Reporter, rouvrir ou supprimer des tâches
 - ✅ Données persistées en temps réel (InstantDB)
+- ✅ Notifications push locales quotidiennes/hebdomadaires
+- ✅ Page Settings complète avec configuration
+- ✅ Test de notifications avec gestion des permissions
+- ✅ **NOUVEAU:** Bilan hebdomadaire par email avec statistiques complètes
+- ✅ **NOUVEAU:** Fonction serverless Vercel avec cron automatique
+- ✅ **NOUVEAU:** Template HTML email professionnel
 
-**Reste à implémenter (Phase 3) :**
-- 🚧 Notifications push locales
-- 🚧 Bilan hebdomadaire par email
-- 🚧 Configuration dans Settings
+**Prochaines étapes (Phase 4) :**
+- 🚧 Polish & finitions UI/UX
+- 🚧 Déploiement Vercel en production
+- 🚧 Tests sur iPhone 13

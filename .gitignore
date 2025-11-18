@@ -35,3 +35,6 @@ ios/
 
 # InstantDB
 .instant/
+
+# TypeScript build artifacts
+*.tsbuildinfo
