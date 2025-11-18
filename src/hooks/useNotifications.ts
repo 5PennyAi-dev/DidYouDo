@@ -1,4 +1,4 @@
-import { LocalNotifications, ScheduleOptions } from '@capacitor/local-notifications';
+import { LocalNotifications } from '@capacitor/local-notifications';
 import type { Task } from '../types';
 import { Preferences } from '@capacitor/preferences';
 
