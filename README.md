@@ -167,14 +167,25 @@ npm run lint     # Linter le code
 - [x] Navigation React Router
 - [x] Build iOS fonctionnel
 
-## Prochaines étapes - Phase 2 (Semaine 2)
+## Roadmap Phase 2 (Semaine 2 - TERMINÉ ✅)
 
-- [ ] Intégration InstantDB (hooks et queries)
-- [ ] CRUD complet des tâches
-- [ ] Formulaire de création de tâche
-- [ ] Écran détails de tâche
-- [ ] Animation de complétion (son + confettis + haptic)
-- [ ] Système de catégories et priorités
+- [x] Intégration InstantDB (hooks et queries)
+- [x] CRUD complet des tâches
+- [x] Formulaire de création de tâche
+- [x] Écran détails de tâche
+- [x] Animation de complétion (son + confettis + haptic)
+- [x] Système de catégories et priorités
+- [x] Actions: compléter, reporter, supprimer
+- [x] Persistance données avec InstantDB
+
+## Prochaines étapes - Phase 3 (Semaine 3)
+
+- [ ] Système de notifications push locales (Capacitor)
+- [ ] Logique scheduling quotidien/hebdomadaire
+- [ ] Bilan hebdomadaire par email (Resend)
+- [ ] Template HTML email avec stats
+- [ ] Page Settings fonctionnelle
+- [ ] Vercel serverless functions + cron
 
 ## Documentation
 
@@ -193,4 +204,18 @@ Usage personnel uniquement - Christian
 
 **Version:** 1.0.0 MVP
 **Dernière mise à jour:** 18 novembre 2025
-**Statut:** Phase 1 Setup complétée ✅
+**Statut:** Phase 1 ✅ | Phase 2 ✅ | Phase 3 🚧
+
+## État actuel
+
+**Application fonctionnelle !** Vous pouvez maintenant :
+- ✅ Créer des tâches avec tous les champs
+- ✅ Voir la liste organisée (actives/complétées)
+- ✅ Compléter une tâche avec animation gamifiée
+- ✅ Reporter, rouvrir ou supprimer des tâches
+- ✅ Données persistées en temps réel (InstantDB)
+
+**Reste à implémenter (Phase 3) :**
+- 🚧 Notifications push locales
+- 🚧 Bilan hebdomadaire par email
+- 🚧 Configuration dans Settings

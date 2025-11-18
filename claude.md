@@ -230,7 +230,7 @@ npx cap open ios                     # Ouvre Xcode
 - [x] Setup React + Vite + TypeScript
 - [x] Configuration TailwindCSS avec palette orange
 - [x] Installation Capacitor + plugins iOS
-- [x] Configuration InstantDB (nécessite APP_ID utilisateur)
+- [x] Configuration InstantDB (APP_ID configuré)
 - [x] Structure de dossiers complète
 - [x] Types TypeScript (Task, Settings)
 - [x] Composants UI de base (Button, Card, PriorityBadge, CategoryBadge)
@@ -238,36 +238,89 @@ npx cap open ios                     # Ouvre Xcode
 - [x] Navigation React Router
 - [x] Build iOS fonctionnel
 
-### 🚧 Phase 2 à venir (Semaine 2)
+### ✅ Phase 2 complétée (Semaine 2)
 
-Objectif : CRUD complet des tâches + animations
+**Objectif atteint :** CRUD complet des tâches + animations gamifiées
+
+**Hooks créés :**
+- [x] `useTasks` - Hook complet InstantDB avec toutes les actions
+  - Query: tasks, activeTasks, completedTasks
+  - Mutations: create, update, complete, uncomplete, delete, postpone, snooze
+
+**Utils créés :**
+- [x] `dateHelpers.ts` - Formatage dates (formatTaskDate, getRelativeDate, etc.)
+- [x] `taskHelpers.ts` - Logique métier (isTaskOverdue, sortByPriority, etc.)
+- [x] `completionAnimation.ts` - Animation complétion (confettis + son + haptic)
+
+**Composants créés :**
+- [x] `TaskForm` - Formulaire complet avec validation
+- [x] `TaskCard` - Affichage tâche dans liste
+- [x] `CategorySelector` - Multi-select avec emojis
+- [x] `PrioritySelector` - Sélecteur 3 priorités
+- [x] `DatePicker` - Sélecteur de date iOS-friendly
+- [x] `Modal` - Modal réutilisable avec animations
+
+**Pages enrichies :**
+- [x] `TaskListPage` - Liste complète avec sections actives/complétées
+- [x] `TaskDetailPage` - Détails + actions (compléter, reporter, supprimer)
+
+**Features fonctionnelles :**
+- ✅ Créer une tâche avec tous les champs
+- ✅ Voir la liste organisée (actives/complétées)
+- ✅ Compléter une tâche avec animation (confettis + son + haptic)
+- ✅ Reporter une tâche (+1j, +3j, +1sem, +2sem)
+- ✅ Supprimer une tâche (avec confirmation)
+- ✅ Rouvrir une tâche complétée
+- ✅ Persistance temps réel avec InstantDB
+
+### 🚧 Phase 3 à venir (Semaine 3)
+
+**Objectif :** Notifications push + Bilan email + Settings
 
 Tâches prioritaires :
-1. **Intégration InstantDB**
-   - Créer hooks personnalisés (`useTasks`, `useSettings`)
-   - Implémenter queries et mutations
-   - Gérer état offline-first
 
-2. **Formulaire création tâche**
-   - Utiliser React Hook Form
-   - Tous les champs visibles (titre, description, date, priorité, catégories)
-   - Validation client-side
-   - Logique auto fréquence rappel (≤7j = daily, >7j = weekly)
+1. **Système de notifications push locales**
+   - [ ] Créer `useNotifications` hook
+   - [ ] Fonction `scheduleTaskReminders(task)` - Planifier notif par tâche
+   - [ ] Fonction `rescheduleAllReminders()` - Au lancement app
+   - [ ] Logique quotidien (17h pour tâches ≤7j) / hebdo (tous les 7j pour >7j)
+   - [ ] Format contenu: Liste 3-5 premières tâches + count si plus
+   - [ ] Badge icon = nombre tâches en attente
+   - [ ] Tester sur iPhone réel
 
-3. **Liste des tâches**
-   - Afficher toutes les tâches non archivées
-   - Tâches complétées visibles (barrées/grisées)
-   - Tap sur tâche → Écran détails
+2. **Bilan hebdomadaire par email**
+   - [ ] Créer route API `/api/send-weekly-report` (Vercel serverless)
+   - [ ] Template HTML email professionnel
+   - [ ] Sections: Message félicitations (dynamique selon count) + Tâches complétées + Tâches restantes
+   - [ ] Calcul stats mensuelles:
+     - Tâches créées/réalisées/restantes
+     - Taux complétion (%)
+     - Délai moyen complétion (jours)
+     - Streak (jours consécutifs ≥1 tâche)
+     - Catégorie la plus productive
+     - Tâches en retard vs à venir
+   - [ ] Intégration Resend.com API
+   - [ ] Fonction `archiveCompletedTasks()` post-envoi
+   - [ ] Configurer Vercel cron job (dimanches 9h)
+   - [ ] Tests envoi
 
-4. **Écran détails tâche**
-   - Afficher tous les champs
-   - Actions : Modifier, Reporter, Snoozer, Supprimer, **Compléter**
-   - **CRITIQUE:** Animation de complétion (voir specs PRD)
+3. **Page Settings fonctionnelle**
+   - [ ] Créer `useSettings` hook (Capacitor Preferences)
+   - [ ] Section Email: input + validation
+   - [ ] Section Rappels: time picker (défaut 17h) + toggle on/off
+   - [ ] Section Bilan: day/time picker (défaut Dimanche 9h) + toggle on/off
+   - [ ] Boutons test: "Envoyer notif test" + "Envoyer email test"
+   - [ ] Sauvegarde automatique des changements
+   - [ ] Feedback visuel (toast/snackbar)
 
-5. **Animation de complétion** (TRÈS IMPORTANT)
-   - Séquence (~2s) : Son joyeux → Confettis → Haptic feedback
-   - Transition douce vers liste
-   - Tâche apparaît barrée/grisée
+4. **Finitions & Polish**
+   - [ ] Vérifier toutes les animations 60fps
+   - [ ] Loading states partout
+   - [ ] Error states avec messages clairs
+   - [ ] Empty states motivants
+   - [ ] Respect safe areas iOS (notch + home indicator)
+   - [ ] Tests sur iPhone 13 réel
+   - [ ] Documentation utilisateur (README)
 
 ## Spécifications critiques (extraites du PRD)
 
@@ -432,4 +485,39 @@ Focus absolu sur les 4 must-have critiques (P0). Tout le reste est pour plus tar
 **Version:** 1.0
 **Dernière mise à jour:** 18 novembre 2025
 **Auteur:** Christian avec Claude Code
-**Statut:** Phase 1 ✅ | Phase 2 🚧 (en attente)
+**Statut:** Phase 1 ✅ | Phase 2 ✅ | Phase 3 🚧
+
+---
+
+## 📝 Note pour la prochaine session
+
+**Ce qui a été accompli aujourd'hui :**
+- ✅ Phase 1 complète: Setup projet React + Vite + Capacitor
+- ✅ Phase 2 complète: CRUD tâches + animations gamifiées
+- ✅ Application fonctionnelle avec persistance InstantDB
+- ✅ Animation de complétion (confettis + son + haptic)
+
+**Application actuellement utilisable pour :**
+- Créer, voir, compléter, reporter et supprimer des tâches
+- Animation motivante lors de la complétion
+- Données persistées en temps réel
+
+**Prochaine priorité - Phase 3 :**
+1. Implémenter les notifications push locales (Capacitor)
+2. Créer le système d'email hebdomadaire (Resend + Vercel)
+3. Finaliser la page Settings
+
+**Commandes utiles pour démarrer :**
+```bash
+npm run dev              # Lancer en dev
+npm run build            # Build production
+npx cap sync ios         # Sync avec iOS
+npx cap open ios         # Ouvrir Xcode
+```
+
+**Fichiers clés à connaître :**
+- `src/hooks/useTasks.ts` - Hook principal pour gérer les tâches
+- `src/utils/completionAnimation.ts` - Animation de complétion
+- `src/pages/TaskListPage.tsx` - Page principale
+- `src/pages/TaskDetailPage.tsx` - Détails + actions
+- `.env` - Clés API configurées (InstantDB + Resend)
