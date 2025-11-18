@@ -16,7 +16,9 @@
     "@capacitor/ios": "^7.4.4",
     "@capacitor/local-notifications": "^7.0.3",
     "@capacitor/preferences": "^7.0.2",
+    "@instantdb/admin": "^0.22.56",
     "@instantdb/react": "^0.22.56",
+    "@vercel/node": "^5.5.6",
     "canvas-confetti": "^1.9.4",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.554.0",
@@ -24,6 +26,7 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.66.1",
     "react-router-dom": "^7.9.6",
+    "resend": "^6.5.0",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

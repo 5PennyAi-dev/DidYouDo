@@ -20,6 +20,7 @@ function SettingsPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
   const [testingNotif, setTestingNotif] = useState(false);
+  const [testingEmail, setTestingEmail] = useState(false);
   const [hasNotifPermission, setHasNotifPermission] = useState(false);
 
   // Charger les paramètres au montage
@@ -112,7 +113,32 @@ function SettingsPage() {
   };
 
   const handleTestEmail = async () => {
-    alert('📧 Test d\'email à implémenter (Phase 3 - partie 2)');
+    if (!email) {
+      alert('❌ Veuillez d\'abord entrer une adresse email');
+      return;
+    }
+
+    setTestingEmail(true);
+
+    try {
+      // Appeler l'API serverless avec le paramètre test=true
+      const response = await fetch(`/api/send-weekly-report?test=true&email=${encodeURIComponent(email)}`, {
+        method: 'POST',
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de l\'envoi de l\'email');
+      }
+
+      alert(`✅ Email de test envoyé avec succès à ${email} !\n\nVérifiez votre boîte de réception (et vos spams).`);
+    } catch (error) {
+      console.error('Erreur lors du test d\'email:', error);
+      alert(`❌ Erreur lors de l'envoi de l'email de test:\n${error instanceof Error ? error.message : 'Erreur inconnue'}`);
+    } finally {
+      setTestingEmail(false);
+    }
   };
 
   const weekDays = [
@@ -290,9 +316,16 @@ function SettingsPage() {
                 variant="secondary"
                 fullWidth
                 onClick={handleTestEmail}
+                disabled={testingEmail || !email}
               >
-                📧 Envoyer email de test
+                {testingEmail ? 'Envoi...' : '📧 Envoyer email de test'}
               </Button>
+
+              {!email && (
+                <p className="text-xs text-gray-500 text-center">
+                  Entrez une adresse email pour tester
+                </p>
+              )}
             </div>
           </Card>
 
