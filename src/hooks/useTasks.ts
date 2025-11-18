@@ -1,5 +1,5 @@
 import { db } from '../lib/instantdb';
-import type { Task, CreateTaskInput, Priority, Category, ReminderFrequency } from '../types';
+import type { Task, CreateTaskInput, ReminderFrequency } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 /**
