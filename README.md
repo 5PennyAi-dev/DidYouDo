@@ -178,14 +178,26 @@ npm run lint     # Linter le code
 - [x] Actions: compléter, reporter, supprimer
 - [x] Persistance données avec InstantDB
 
-## Prochaines étapes - Phase 3 (Semaine 3)
+## Phase 3 - Partie 1 (EN COURS 🚧)
 
-- [ ] Système de notifications push locales (Capacitor)
-- [ ] Logique scheduling quotidien/hebdomadaire
+### Notifications Push Locales - TERMINÉ ✅
+- [x] Hook useNotifications avec Capacitor Local Notifications
+- [x] Logique scheduling quotidien/hebdomadaire
+- [x] Notifications groupées (3-5 tâches + count)
+- [x] Badge icon avec nombre de tâches
+- [x] Gestion des permissions iOS
+- [x] Fonction de test de notification
+- [x] Page Settings complète avec configuration
+- [x] Persistance des paramètres (Capacitor Preferences)
+- [x] Intégration automatique au lancement de l'app
+
+### Prochaines étapes - Phase 3 Partie 2
+
 - [ ] Bilan hebdomadaire par email (Resend)
 - [ ] Template HTML email avec stats
-- [ ] Page Settings fonctionnelle
+- [ ] Calcul des statistiques mensuelles
 - [ ] Vercel serverless functions + cron
+- [ ] Archivage des tâches complétées après envoi
 
 ## Documentation
 
@@ -204,7 +216,7 @@ Usage personnel uniquement - Christian
 
 **Version:** 1.0.0 MVP
 **Dernière mise à jour:** 18 novembre 2025
-**Statut:** Phase 1 ✅ | Phase 2 ✅ | Phase 3 🚧
+**Statut:** Phase 1 ✅ | Phase 2 ✅ | Phase 3.1 ✅ | Phase 3.2 🚧
 
 ## État actuel
 
@@ -214,8 +226,11 @@ Usage personnel uniquement - Christian
 - ✅ Compléter une tâche avec animation gamifiée
 - ✅ Reporter, rouvrir ou supprimer des tâches
 - ✅ Données persistées en temps réel (InstantDB)
+- ✅ **NOUVEAU:** Notifications push locales quotidiennes/hebdomadaires
+- ✅ **NOUVEAU:** Page Settings complète avec configuration
+- ✅ **NOUVEAU:** Test de notifications avec gestion des permissions
 
-**Reste à implémenter (Phase 3) :**
-- 🚧 Notifications push locales
-- 🚧 Bilan hebdomadaire par email
-- 🚧 Configuration dans Settings
+**Reste à implémenter (Phase 3.2) :**
+- 🚧 Bilan hebdomadaire par email avec statistiques
+- 🚧 Serverless functions Vercel + cron
+- 🚧 Template HTML email professionnel

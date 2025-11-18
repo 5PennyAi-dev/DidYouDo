@@ -273,22 +273,49 @@ npx cap open ios                     # Ouvre Xcode
 - ✅ Rouvrir une tâche complétée
 - ✅ Persistance temps réel avec InstantDB
 
-### 🚧 Phase 3 à venir (Semaine 3)
+### ✅ Phase 3 - Partie 1 complétée (Notifications)
 
-**Objectif :** Notifications push + Bilan email + Settings
+**Objectif atteint :** Système de notifications push locales + Settings
+
+**Hooks créés :**
+- [x] `useNotifications` - Hook complet pour notifications locales
+  - Permissions: requestPermission, checkPermission
+  - Scheduling: scheduleTaskReminder, scheduleGroupedReminder, rescheduleAllReminders
+  - Gestion: updateBadgeCount, cancelAllReminders, sendTestNotification
+  - Configuration: getReminderTime, areNotificationsEnabled
+
+**Features implémentées :**
+- [x] Notifications quotidiennes pour tâches ≤7 jours
+- [x] Notifications hebdomadaires pour tâches >7 jours
+- [x] Notifications groupées (3-5 tâches + count)
+- [x] Badge icon avec nombre de tâches en attente
+- [x] Gestion complète des permissions iOS
+- [x] Test de notification (envoi dans 5 secondes)
+- [x] Page Settings complète et fonctionnelle
+- [x] Persistance avec Capacitor Preferences
+- [x] Auto-rescheduling au lancement de l'app
+- [x] Respect des préférences utilisateur (on/off, horaire)
+
+**Page Settings :**
+- [x] Section Email avec validation
+- [x] Section Notifications avec time picker (défaut 17h)
+- [x] Section Bilan hebdo avec day/time picker
+- [x] Toggles pour activer/désactiver
+- [x] Boutons de test (notification + email)
+- [x] Sauvegarde automatique avec feedback visuel
+- [x] Warning si permissions non accordées
+
+**Intégration App :**
+- [x] Reschedule automatique au lancement (App.tsx)
+- [x] Update quand le nombre de tâches change
+
+### 🚧 Phase 3 - Partie 2 à venir (Email & Stats)
+
+**Objectif :** Bilan hebdomadaire par email + Finitions
 
 Tâches prioritaires :
 
-1. **Système de notifications push locales**
-   - [ ] Créer `useNotifications` hook
-   - [ ] Fonction `scheduleTaskReminders(task)` - Planifier notif par tâche
-   - [ ] Fonction `rescheduleAllReminders()` - Au lancement app
-   - [ ] Logique quotidien (17h pour tâches ≤7j) / hebdo (tous les 7j pour >7j)
-   - [ ] Format contenu: Liste 3-5 premières tâches + count si plus
-   - [ ] Badge icon = nombre tâches en attente
-   - [ ] Tester sur iPhone réel
-
-2. **Bilan hebdomadaire par email**
+1. **Bilan hebdomadaire par email**
    - [ ] Créer route API `/api/send-weekly-report` (Vercel serverless)
    - [ ] Template HTML email professionnel
    - [ ] Sections: Message félicitations (dynamique selon count) + Tâches complétées + Tâches restantes
@@ -300,20 +327,12 @@ Tâches prioritaires :
      - Catégorie la plus productive
      - Tâches en retard vs à venir
    - [ ] Intégration Resend.com API
-   - [ ] Fonction `archiveCompletedTasks()` post-envoi
+   - [ ] Fonction `archiveCompletedTasks()` post-envoi (déjà dans useTasks)
    - [ ] Configurer Vercel cron job (dimanches 9h)
+   - [ ] Connecter le bouton "Test email" dans Settings
    - [ ] Tests envoi
 
-3. **Page Settings fonctionnelle**
-   - [ ] Créer `useSettings` hook (Capacitor Preferences)
-   - [ ] Section Email: input + validation
-   - [ ] Section Rappels: time picker (défaut 17h) + toggle on/off
-   - [ ] Section Bilan: day/time picker (défaut Dimanche 9h) + toggle on/off
-   - [ ] Boutons test: "Envoyer notif test" + "Envoyer email test"
-   - [ ] Sauvegarde automatique des changements
-   - [ ] Feedback visuel (toast/snackbar)
-
-4. **Finitions & Polish**
+2. **Finitions & Polish**
    - [ ] Vérifier toutes les animations 60fps
    - [ ] Loading states partout
    - [ ] Error states avec messages clairs
@@ -485,31 +504,49 @@ Focus absolu sur les 4 must-have critiques (P0). Tout le reste est pour plus tar
 **Version:** 1.0
 **Dernière mise à jour:** 18 novembre 2025
 **Auteur:** Christian avec Claude Code
-**Statut:** Phase 1 ✅ | Phase 2 ✅ | Phase 3 🚧
+**Statut:** Phase 1 ✅ | Phase 2 ✅ | Phase 3.1 ✅ | Phase 3.2 🚧
 
 ---
 
 ## 📝 Note pour la prochaine session
 
-**Ce qui a été accompli aujourd'hui :**
+**Ce qui a été accompli :**
 - ✅ Phase 1 complète: Setup projet React + Vite + Capacitor
 - ✅ Phase 2 complète: CRUD tâches + animations gamifiées
-- ✅ Application fonctionnelle avec persistance InstantDB
-- ✅ Animation de complétion (confettis + son + haptic)
+- ✅ **Phase 3.1 complète: Notifications push locales + Settings**
+  - Hook useNotifications avec Capacitor Local Notifications
+  - Notifications quotidiennes/hebdomadaires intelligentes
+  - Page Settings complète avec persistance
+  - Test de notifications fonctionnel
+  - Gestion des permissions iOS
+  - Auto-rescheduling au lancement
 
 **Application actuellement utilisable pour :**
-- Créer, voir, compléter, reporter et supprimer des tâches
-- Animation motivante lors de la complétion
-- Données persistées en temps réel
+- ✅ Créer, voir, compléter, reporter et supprimer des tâches
+- ✅ Animation motivante lors de la complétion
+- ✅ Données persistées en temps réel
+- ✅ **Notifications push quotidiennes/hebdomadaires**
+- ✅ **Configuration complète dans Settings**
+- ✅ **Test de notifications en un clic**
 
-**Prochaine priorité - Phase 3 :**
-1. Implémenter les notifications push locales (Capacitor)
-2. Créer le système d'email hebdomadaire (Resend + Vercel)
-3. Finaliser la page Settings
+**Prochaine priorité - Phase 3.2 :**
+1. **Bilan hebdomadaire par email (Priority 2)**
+   - Créer API serverless Vercel `/api/send-weekly-report`
+   - Template HTML email professionnel avec stats
+   - Calcul statistiques: taux complétion, streak, délai moyen, etc.
+   - Intégration Resend.com API (clé déjà configurée dans .env)
+   - Vercel cron job pour envoi automatique dimanche 9h
+   - Connecter le bouton "Test email" dans Settings
+
+2. **Polish et finitions**
+   - Loading/error/empty states
+   - Safe areas iOS
+   - Tests iPhone 13
 
 **Commandes utiles pour démarrer :**
 ```bash
-npm run dev              # Lancer en dev
+npm install              # Installer dépendances
+npm run dev              # Lancer en dev (http://localhost:3000)
 npm run build            # Build production
 npx cap sync ios         # Sync avec iOS
 npx cap open ios         # Ouvrir Xcode
@@ -517,7 +554,15 @@ npx cap open ios         # Ouvrir Xcode
 
 **Fichiers clés à connaître :**
 - `src/hooks/useTasks.ts` - Hook principal pour gérer les tâches
+- `src/hooks/useNotifications.ts` - **NOUVEAU** Hook notifications push
+- `src/pages/SettingsPage.tsx` - **NOUVEAU** Page Settings complète
 - `src/utils/completionAnimation.ts` - Animation de complétion
 - `src/pages/TaskListPage.tsx` - Page principale
 - `src/pages/TaskDetailPage.tsx` - Détails + actions
+- `src/App.tsx` - Integration notifications (reschedule au lancement)
 - `.env` - Clés API configurées (InstantDB + Resend)
+
+**Structure pour Phase 3.2 (à créer) :**
+- `api/send-weekly-report.ts` - Vercel serverless function
+- `vercel.json` - Configuration cron job
+- Optionnel: `api/templates/weekly-email.html` - Template email
