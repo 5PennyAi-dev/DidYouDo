@@ -9,21 +9,24 @@ import {
   Trash2,
   Loader2,
 } from 'lucide-react';
-import { Button, Card, PriorityBadge, CategoryBadge, Modal } from '../components';
+import { Button, Card, PriorityBadge, CategoryBadge, Modal, TaskForm } from '../components';
 import { useTasks } from '../hooks/useTasks';
 import { formatTaskDate, getRelativeDate } from '../utils/dateHelpers';
 import { isTaskOverdue, isTaskDueToday } from '../utils/taskHelpers';
 import { playCompletionAnimation } from '../utils/completionAnimation';
+import type { CreateTaskInput } from '../types';
 
 function TaskDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { tasks, completeTask, uncompleteTask, deleteTask, postponeTask } = useTasks();
+  const { tasks, completeTask, uncompleteTask, deleteTask, postponeTask, updateTask } = useTasks();
 
   const [isCompleting, setIsCompleting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showPostponeMenu, setShowPostponeMenu] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const task = tasks.find((t) => t.id === id);
 
@@ -86,6 +89,25 @@ function TaskDetailPage() {
       setShowPostponeMenu(false);
     } catch (error) {
       console.error('Erreur:', error);
+    }
+  };
+
+  const handleEdit = async (updates: CreateTaskInput) => {
+    try {
+      setIsEditing(true);
+      await updateTask(task.id, {
+        title: updates.title,
+        description: updates.description,
+        dueDate: updates.dueDate as any,
+        priority: updates.priority,
+        categories: updates.categories,
+      });
+      setShowEditModal(false);
+    } catch (error) {
+      console.error('Erreur lors de la modification:', error);
+      alert('Erreur lors de la modification de la tâche');
+    } finally {
+      setIsEditing(false);
     }
   };
 
@@ -194,7 +216,11 @@ function TaskDetailPage() {
                 </Button>
 
                 <div className="grid grid-cols-2 gap-3">
-                  <Button variant="secondary" size="md" disabled>
+                  <Button
+                    variant="secondary"
+                    size="md"
+                    onClick={() => setShowEditModal(true)}
+                  >
                     <Edit2 className="w-4 h-4 inline-block mr-2" />
                     Modifier
                   </Button>
@@ -262,6 +288,21 @@ function TaskDetailPage() {
               </Button>
             </div>
           </div>
+        </Modal>
+
+        {/* Modal Modifier */}
+        <Modal
+          isOpen={showEditModal}
+          onClose={() => setShowEditModal(false)}
+          title="Modifier la tâche"
+          size="md"
+        >
+          <TaskForm
+            initialTask={task}
+            onSubmit={handleEdit}
+            onCancel={() => setShowEditModal(false)}
+            isSubmitting={isEditing}
+          />
         </Modal>
 
         {/* Modal Reporter */}
