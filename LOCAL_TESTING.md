@@ -132,17 +132,20 @@ Si vous voulez tester l'envoi d'emails en local, vous avez deux options:
 
 ### Option A: Utiliser Vercel CLI (Recommandé)
 
-```bash
-# Installer Vercel CLI
-npm install -g vercel
+Vercel CLI est déjà installé dans le projet comme dépendance de développement.
 
+```bash
 # Lancer l'émulation locale des fonctions serverless
-vercel dev
+npm run dev:vercel
 ```
+
+**Note**: La première fois, Vercel CLI vous demandera de vous connecter et de lier le projet. Suivez les instructions à l'écran.
 
 L'app sera disponible sur `http://localhost:3000` et les fonctions API seront émulées.
 
-Vous pourrez alors tester l'envoi d'email en cliquant sur "Tester l'email" dans les paramètres.
+Vous pourrez alors tester l'envoi d'email en cliquant sur "📧 Envoyer email de test" dans les paramètres.
+
+📚 **Pour plus de détails**, consultez [EMAIL_TESTING.md](./EMAIL_TESTING.md)
 
 ### Option B: Déployer sur Vercel
 
