@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { CreateTaskInput, Priority, Category } from '../types';
+import type { CreateTaskInput, Priority, Category, Task } from '../types';
 import Button from './Button';
 import PrioritySelector from './PrioritySelector';
 import CategorySelector from './CategorySelector';
@@ -9,14 +9,17 @@ interface TaskFormProps {
   onSubmit: (task: CreateTaskInput) => void;
   onCancel: () => void;
   isSubmitting?: boolean;
+  initialTask?: Task; // Pour le mode édition
 }
 
-function TaskForm({ onSubmit, onCancel, isSubmitting = false }: TaskFormProps) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState<Date | undefined>(undefined);
-  const [priority, setPriority] = useState<Priority>('medium');
-  const [categories, setCategories] = useState<Category[]>([]);
+function TaskForm({ onSubmit, onCancel, isSubmitting = false, initialTask }: TaskFormProps) {
+  const [title, setTitle] = useState(initialTask?.title || '');
+  const [description, setDescription] = useState(initialTask?.description || '');
+  const [dueDate, setDueDate] = useState<Date | undefined>(
+    initialTask?.dueDate ? new Date(initialTask.dueDate) : undefined
+  );
+  const [priority, setPriority] = useState<Priority>(initialTask?.priority || 'medium');
+  const [categories, setCategories] = useState<Category[]>(initialTask?.categories || []);
   const [errors, setErrors] = useState<{ title?: string }>({});
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -131,7 +134,10 @@ function TaskForm({ onSubmit, onCancel, isSubmitting = false }: TaskFormProps) {
           disabled={isSubmitting}
           className="flex-1"
         >
-          {isSubmitting ? 'Création...' : 'Créer la tâche'}
+          {isSubmitting
+            ? (initialTask ? 'Modification...' : 'Création...')
+            : (initialTask ? 'Modifier la tâche' : 'Créer la tâche')
+          }
         </Button>
       </div>
     </form>
